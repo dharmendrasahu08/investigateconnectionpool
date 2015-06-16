@@ -12,10 +12,14 @@ connection closed issue instead. The behaviour is inline with the expectation wi
 
 # Steps to run this app and reproduce the issue : 
 1- PostgreSQL database is used in the application. It should be installed in the machine. We need to create a schema named 
-   "tomcat_test". This app uses default username as "postgres" and empty passsword. 
+   "tomcat_test". This app uses default username as "postgres" and empty passsword.
+   
 2- Build application using maven : 
     mvn package
+    
 3- Copy generated war file to tomcat webApps folder.
+
 4- Copy the jdbc driver postgresql-9.1-901jdbc4.jar from WEB-INF/lib(once the project is built and the dependencies are
 downloaded from maven repo) to tomcat lib folder.
+
 5- Start tomcat and hit url localhost:8080/investigateconnectionpool
