@@ -13,7 +13,8 @@ connection closed issue instead. The behaviour is inline with the expectation wi
 # Steps to run this app and reproduce the issue : 
 1- PostgreSQL database is used in the application. It should be installed in the machine. We need to create a schema named 
    "tomcat_test". This app uses default username as "postgres" and empty passsword.
-2- Uncomment log_statement = note and set to log_statement = note in  /etc/postgresql/9.2/main/postgresql.conf(in ubuntu), After this changes restart postgreSQL service 
+   
+2- Uncomment log_statement = note and set to log_statement = note in  /etc/postgresql/9.2/main/postgresql.conf(in ubuntu), After this changes restart postgreSQL service. 
    $ sudo service postgresql restart
    
 3- Build application using maven : 
