@@ -28,14 +28,20 @@ After this changes restart postgreSQL service.
 6- Start tomcat and hit url localhost:8080/investigateconnectionpool
    
    Tomcat-Jdbc connection pool section
+   
      a. Click the "Query with 10 params in IN clause"  link, it redirect to "success page" (normal execution).
-     b. Click the "Query with 40000 params in IN clause" link, now it generate: "This connection has been closed exception"
-     c. If we again click any of the link then application is trying to use old connection which was closed. We need to 
-        restart the app to fix this.
+     
+     b. Click the "Query with 40000 params in IN clause" link, now it generate: "This connection has been closed           exception".
+     
+     c. If we again click any of the link then application is trying to use old connection which was closed. We            need to restart the app to fix this.
+       
   
    C3PO connection pool
+   
      a. Click the "Query with 10 params in IN clause"  link, it redirect to no "success page" (normal execution).
-     b. Click the "Query with 40000 params in IN clause" link, now it generate: "This connection has been closed exception".
+     
+     b. Click the "Query with 40000 params in IN clause" link, now it generate: "This connection has been closed           exception".
+     
      c. If we again click "Query with 10 params in IN clause", it redirect to "success page".
   
   
