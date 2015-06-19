@@ -1,37 +1,21 @@
 <html>
 <head>
-<title>Data source test</title>
+<title>Test TomcatJDBC and C3P0</title>
 </head>
-<script type="text/javascript">
-	function clickTomcatJdbcConnectionPoolLinkMultipleTime() {
-		for(var index = 0; index < 3; index++ ) {
-			document.getElementById('tomcatJdbcTest').click();
-		    window.history.back();
-		}
-	}
-	
-	function clickc3poConnectionPoolLinkMultipleTime() {
-		for(var index = 0; index < 3; index++ ) {
-		    document.getElementById('c3poTest').click();
-		    window.history.back();
-		}
-	}
-</script>
 <body>
-	
 	<center>
-		<h3>Tomcat-Jdbc connection pool</h3>
+		<h3>Using Tomcat-Jdbc connection pool</h3>
 		<h4>
-			<!--<button type="button" onclick="clickTomcatJdbcConnectionPoolLinkMultipleTime();">Click multiple time!</button> <br/>-->
-			<a href="tomcatJdbcTest.htm" id="tomcatJdbcTest" >Click to view tomcat-jdbc connection pool error</a>
+			<a href="tomcatJdbcTest.htm" id="tomcatJdbcTest" >Query with 40000 params in IN clause</a><br>
+			<a href="tomcatJdbcTest/valid.htm" id="tomcatJdbcTestValid" >Query with 10 params in IN clause</a>
 		</h4>
 	</center>
 	
 	<center>
-		<h3>C3PO connection pool</h3>
+		<h3>Using C3PO connection pool</h3>
 		<h4>
-			<!--<button type="button" onclick="clickc3poConnectionPoolLinkMultipleTime();">Click multiple time!</button> <br/>-->
-			<a href="c3poTest.htm" id="c3poTest">Click to view c3po connection pool error</a>
+			<a href="c3poTest.htm" id="c3poTest">Query with 40000 params in IN clause</a><br>
+			<a href="c3poTest/valid.htm" id="c3poTestValid" >Query with 10 params in IN clause</a>
 		</h4>
 	</center>
 </body>

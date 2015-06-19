@@ -1,9 +1,38 @@
-2015-06-12 11:10:19 IST [7154-2] postgres@tomcat_test LOG:  execute <unnamed>: SELECT 1
-2015-06-12 11:10:19 IST [7154-3] postgres@tomcat_test LOG:  incomplete message from client
-2015-06-12 11:10:19 IST [7156-1] postgres@tomcat_test LOG:  execute <unnamed>: SHOW TRANSACTION ISOLATION LEVEL
-2015-06-12 11:10:19 IST [7156-2] postgres@tomcat_test LOG:  execute <unnamed>: SELECT 1
-2015-06-12 11:10:35 IST [7156-3] postgres@tomcat_test LOG:  execute <unnamed>: SELECT 1
-2015-06-12 11:10:35 IST [7156-4] postgres@tomcat_test LOG:  execute <unnamed>: SELECT NULL AS TABLE_CAT, n.nspname AS TABLE_SCHEM, c.relname AS TABLE_NAME,  CASE n.nspname ~ '^pg_' OR n.nspname = 'information_schema'  WHEN true THEN CASE  WHEN n.nspname = 'pg_catalog' OR n.nspname = 'information_schema' THEN CASE c.relkind   WHEN 'r' THEN 'SYSTEM TABLE'   WHEN 'v' THEN 'SYSTEM VIEW'   WHEN 'i' THEN 'SYSTEM INDEX'   ELSE NULL   END  WHEN n.nspname = 'pg_toast' THEN CASE c.relkind   WHEN 'r' THEN 'SYSTEM TOAST TABLE'   WHEN 'i' THEN 'SYSTEM TOAST INDEX'   ELSE NULL   END  ELSE CASE c.relkind   WHEN 'r' THEN 'TEMPORARY TABLE'   WHEN 'i' THEN 'TEMPORARY INDEX'   WHEN 'S' THEN 'TEMPORARY SEQUENCE'   WHEN 'v' THEN 'TEMPORARY VIEW'   ELSE NULL   END  END  WHEN false THEN CASE c.relkind  WHEN 'r' THEN 'TABLE'  WHEN 'i' THEN 'INDEX'  WHEN 'S' THEN 'SEQUENCE'  WHEN 'v' THEN 'VIEW'  WHEN 'c' THEN 'TYPE'  ELSE NULL  END  ELSE NULL  END  AS TABLE_TYPE, d.description AS REMARKS  FROM pg_catalog.pg_namespace n, pg_catalog.pg_class c  LEFT JOIN pg_catalog.pg_description d ON (c.oid = d.objoid AND d.objsubid = 0)  LEFT JOIN pg_catalog.pg_class dc ON (d.classoid=dc.oid AND dc.relname='pg_class')  LEFT JOIN pg_catalog.pg_namespace dn ON (dn.oid=dc.relnamespace AND dn.nspname='pg_catalog')  WHERE c.relnamespace = n.oid  AND c.relname LIKE 'emp'  ORDER BY TABLE_TYPE,TABLE_SCHEM,TABLE_NAME 
-2015-06-12 11:10:35 IST [7155-2] postgres@tomcat_test LOG:  execute <unnamed>: SELECT 1
-2015-06-12 11:10:35 IST [7155-3] postgres@tomcat_test LOG:  incomplete message from client
-2015-06-12 11:10:35 IST [7159-1] postgres@tomcat_test LOG:  execute <unnamed>: SHOW TRANSACTION ISOLATION LEVEL
+2015-06-19 14:25:14 IST [3211-8] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:14 IST [3211-9] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:14 IST [3211-10] postgres@db_for_c3p0 LOG:  execute <unnamed>: select this_.id as id2_0_, this_.address as address2_0_, this_.age as age2_0_, this_.name as name2_0_, this_.salary as salary2_0_ from EMP this_ where this_.id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+2015-06-19 14:25:14 IST [3211-11] postgres@db_for_c3p0 DETAIL:  parameters: $1 = '0', $2 = '1', $3 = '2', $4 = '3', $5 = '4', $6 = '5', $7 = '6', $8 = '7', $9 = '8', $10 = '9'
+2015-06-19 14:25:14 IST [3211-12] postgres@db_for_c3p0 LOG:  execute S_2: COMMIT
+2015-06-19 14:25:14 IST [3211-13] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE
+2015-06-19 14:25:29 IST [3211-14] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:30 IST [3211-15] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:30 IST [3211-16] postgres@db_for_c3p0 LOG:  incomplete message from client
+2015-06-19 14:25:30 IST [3292-1] postgres@db_for_c3p0 LOG:  execute <unnamed>: SHOW TRANSACTION ISOLATION LEVEL
+2015-06-19 14:25:35 IST [3292-2] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:35 IST [3292-3] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:35 IST [3292-4] postgres@db_for_c3p0 LOG:  execute <unnamed>: select this_.id as id2_0_, this_.address as address2_0_, this_.age as age2_0_, this_.name as name2_0_, this_.salary as salary2_0_ from EMP this_ where this_.id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+2015-06-19 14:25:35 IST [3292-5] postgres@db_for_c3p0 DETAIL:  parameters: $1 = '0', $2 = '1', $3 = '2', $4 = '3', $5 = '4', $6 = '5', $7 = '6', $8 = '7', $9 = '8', $10 = '9'
+2015-06-19 14:25:35 IST [3292-6] postgres@db_for_c3p0 LOG:  execute S_2: COMMIT
+2015-06-19 14:25:35 IST [3292-7] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE
+2015-06-19 14:25:38 IST [3292-8] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:38 IST [3292-9] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:38 IST [3292-10] postgres@db_for_c3p0 LOG:  execute <unnamed>: select this_.id as id2_0_, this_.address as address2_0_, this_.age as age2_0_, this_.name as name2_0_, this_.salary as salary2_0_ from EMP this_ where this_.id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+2015-06-19 14:25:38 IST [3292-11] postgres@db_for_c3p0 DETAIL:  parameters: $1 = '0', $2 = '1', $3 = '2', $4 = '3', $5 = '4', $6 = '5', $7 = '6', $8 = '7', $9 = '8', $10 = '9'
+2015-06-19 14:25:38 IST [3292-12] postgres@db_for_c3p0 LOG:  execute S_2: COMMIT
+2015-06-19 14:25:38 IST [3292-13] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE
+2015-06-19 14:25:41 IST [3292-14] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:41 IST [3292-15] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:41 IST [3292-16] postgres@db_for_c3p0 LOG:  incomplete message from client
+2015-06-19 14:25:41 IST [3296-1] postgres@db_for_c3p0 LOG:  execute <unnamed>: SHOW TRANSACTION ISOLATION LEVEL
+2015-06-19 14:25:43 IST [3296-2] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:43 IST [3296-3] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:43 IST [3296-4] postgres@db_for_c3p0 LOG:  execute <unnamed>: select this_.id as id2_0_, this_.address as address2_0_, this_.age as age2_0_, this_.name as name2_0_, this_.salary as salary2_0_ from EMP this_ where this_.id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+2015-06-19 14:25:43 IST [3296-5] postgres@db_for_c3p0 DETAIL:  parameters: $1 = '0', $2 = '1', $3 = '2', $4 = '3', $5 = '4', $6 = '5', $7 = '6', $8 = '7', $9 = '8', $10 = '9'
+2015-06-19 14:25:43 IST [3296-6] postgres@db_for_c3p0 LOG:  execute S_2: COMMIT
+2015-06-19 14:25:43 IST [3296-7] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE
+2015-06-19 14:25:46 IST [3296-8] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY
+2015-06-19 14:25:46 IST [3296-9] postgres@db_for_c3p0 LOG:  execute S_1: BEGIN
+2015-06-19 14:25:46 IST [3296-10] postgres@db_for_c3p0 LOG:  execute <unnamed>: select this_.id as id2_0_, this_.address as address2_0_, this_.age as age2_0_, this_.name as name2_0_, this_.salary as salary2_0_ from EMP this_ where this_.id in ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+2015-06-19 14:25:46 IST [3296-11] postgres@db_for_c3p0 DETAIL:  parameters: $1 = '0', $2 = '1', $3 = '2', $4 = '3', $5 = '4', $6 = '5', $7 = '6', $8 = '7', $9 = '8', $10 = '9'
+2015-06-19 14:25:46 IST [3296-12] postgres@db_for_c3p0 LOG:  execute S_2: COMMIT
+2015-06-19 14:25:46 IST [3296-13] postgres@db_for_c3p0 LOG:  execute <unnamed>: SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE

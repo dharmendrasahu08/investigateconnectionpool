@@ -1,5 +1,12 @@
---create table
+-- create 2 databases db_for_tomcat_jdbc and db_for_c3p0 using below commented queries in postgres terminal
+-- or create database from pgadmin 
 
+-- CREATE DATABASE db_for_tomcat_jdbc;
+-- CREATE DATABASE db_for_c3p0;
+
+
+-- execute create table and insert statement in both databases
+-- create table
 CREATE TABLE EMP(
    ID INT PRIMARY KEY     NOT NULL,
    NAME           TEXT    NOT NULL,
@@ -9,7 +16,6 @@ CREATE TABLE EMP(
 );
 
 --insert statement 
-
 INSERT INTO EMP (ID, NAME, AGE, ADDRESS, SALARY) VALUES (1, 'A', 1, 'ADDESS_1', 1000);
 INSERT INTO EMP (ID, NAME, AGE, ADDRESS, SALARY) VALUES (2, 'B', 2, 'ADDESS_2', 1000);
 INSERT INTO EMP (ID, NAME, AGE, ADDRESS, SALARY) VALUES (3, 'C', 3, 'ADDESS_3', 1000);

@@ -1,64 +1,97 @@
+<?xml  version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
-        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
- 
-	<context:component-scan base-package="com.investigateconnectionpool" />
-	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
- 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-		<property name="prefix">
-			<value>/WEB-INF/pages/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
-	</bean>
- 	
-	<bean id="tomcatJdbcDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-	    <property name="driverClassName" value="org.postgresql.Driver" />
-	    <property name="url" value="jdbc:postgresql://localhost:5432/tomcat_test" />
-	    <property name="username" value="postgres" />
-	    <property name="password" value="" />
-	    <property name="initialSize" value="0" />
-	    <property name="maxActive" value="5" />
-	    <property name="maxIdle" value="3" />
-	    <property name="minIdle" value="2" />
-	    <property name="maxWait" value="30000" />
-	    <property name="testOnBorrow" value="true" />
-	    <property name="testOnReturn" value="false" />
-	    <property name="testWhileIdle" value="false" />
-	    <property name="validationQuery" value="SELECT 1" />
-	    <property name="timeBetweenEvictionRunsMillis" value="3600" />
-	    <property name="minEvictableIdleTimeMillis" value="40000" />
-	    <property name="removeAbandoned" value="true" />
-	    <property name="removeAbandonedTimeout" value="60000" />
-	    <property name="validationInterval" value="0" />
-	    <property name="fairQueue" value="true" />
- 	</bean>
- 	
- 	<bean id="c3poDataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:lang="http://www.springframework.org/schema/lang"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    
+     <tx:annotation-driven/>
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+     
+    <bean id="tomcatJdbcDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/db_for_tomcat_jdbc" />
+        <property name="username" value="postgres" />
+        <property name="password" value="" />
+        <property name="maxActive" value="3" />
+        <property name="initialSize" value="2" />
+     </bean>
+     
+     <bean id="c3poDataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/tomcat_test" />
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/db_for_c3p0" />
         <property name="user" value="postgres" />
         <property name="password" value="" /> 
-
-        <property name="acquireIncrement" value="5" />
-        <property name="idleConnectionTestPeriod" value="0" />
-        <property name="minPoolSize" value="3" />
-        <property name="maxPoolSize" value="5" />
-        <property name="maxIdleTime" value="3000" />
-        <property name="maxStatements" value="0" />
-        <property name="maxStatementsPerConnection" value="0" />
-        <property name="maxIdleTimeExcessConnections" value="0" />
-        <property name="preferredTestQuery" value="SELECT 1" />
-        <property name="testConnectionOnCheckout" value="true" />
-        <property name="testConnectionOnCheckin" value="false" />        
+        <property name="maxPoolSize" value="3" />
+        <property name="minPoolSize" value="2" />
     </bean>
+    
+    <bean id="tomcatJdbcSessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="tomcatJdbcDataSource" />
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+           </props>
+        </property>
+    </bean>
+    
+    <bean id="c3poSessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="c3poDataSource" />
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+           </props>
+        </property>
+    </bean>
+      
+    <bean id="tomcatJdbcTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="tomcatJdbcSessionFactory"/>
+        <qualifier value="tomcatJdbcTransactionManager"/>
+    </bean>
+    
+    <bean id="c3poTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="c3poSessionFactory"/>
+        <qualifier value="c3poTransactionManager"/>
+    </bean>
+    
+    <bean id="tomcatJdbcHibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="tomcatJdbcSessionFactory"/>
+    </bean>
+    
+    <bean id="c3poHibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="c3poSessionFactory"/>
+    </bean>
+    
+    <bean id="empRepo" class="com.investigateconnectionpool.EmpRepo" >
+        <property name="tomcatJdbcHibernateTemplate" ref="tomcatJdbcHibernateTemplate" />
+        <property name="c3poHibernateTemplate" ref="c3poHibernateTemplate" />
+    </bean>
+    
+    <bean id="empService" class="com.investigateconnectionpool.EmpService" >
+        <property name="empRepo" ref="empRepo" />
+    </bean>
+    
 </beans>
